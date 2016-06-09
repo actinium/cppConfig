@@ -21,10 +21,13 @@ One variable per line. The `#` is used for comments.
 
 Variable names may contain characters: `A-Z`, `a-z`, `0-9` and `_`.
 
-__Valid types are:__
+###Valid types are:
 
-   - strings ( std::string )
-   - integers ( int, long, long long )
-   - unsigned integers ( unsigned, unsigned long, unsigned long long )
-   - floating point numbers ( float, double, long double )
+__strings__ (std::string)
+
+__integers__ (int, long, long long)
+
+__unsigned integers__ (unsigned, unsigned long, unsigned long long)
+
+__floating point numbers__ (float, double, long double)
 

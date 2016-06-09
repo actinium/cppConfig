@@ -15,8 +15,8 @@ One variable per line. The '#' is used for comments.
 
 ```
   # comment
-  variable name = value
-  variable name = "strings need quotation marks"
+  variable_name = value
+  variable_name = "strings need quotation marks"
 ```
 
 __Valid types are:__

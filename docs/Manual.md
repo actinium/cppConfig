@@ -19,6 +19,8 @@ One variable per line. The '#' is used for comments.
   variable_name = "strings need quotation marks"
 ```
 
+Variable names may contain `A-Z`, `a-z`, `0-9` and `_`.
+
 __Valid types are:__
 
    - strings ( std::string )

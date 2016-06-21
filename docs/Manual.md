@@ -4,8 +4,8 @@
 
 ```
   auto conf = config::create();
-  conf = config::load_defaults("filename");
-  conf = config::load("filename");
+  conf.load_defaults("filename");
+  conf.load("filename");
   
   std::string api_key = conf["api_key"];
   unsigned timeout = conf["timeout"];

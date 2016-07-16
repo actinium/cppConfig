@@ -3,7 +3,9 @@
 ##Usage
 
 ```
-  auto conf = config::load("filename");
+  auto conf = config::create();
+  conf.load_defaults("filename");
+  conf.load("filename");
   
   std::string api_key = conf["api_key"];
   unsigned timeout = conf["timeout"];

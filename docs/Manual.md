@@ -7,6 +7,8 @@
   
   std::string api_key = conf["api_key"];
   unsigned timeout = conf["timeout"];
+  
+  std::string str = conf.get("key","defaultValue");
 ```
 
 ##File format

@@ -3,16 +3,16 @@
 ##Usage
 
 ```
-  auto conf = config::load("filename");
+  auto conf = config::load( "filename" );
   
   std::string api_key = conf["api_key"];
   unsigned timeout = conf["timeout"];
   
-  if(conf.has_key("key")){
+  if( conf.has_key("key") ){
     ...
   }
   
-  std::string str = conf.get("key","defaultValue");
+  std::string str = conf.get( "key", "defaultValue" );
 ```
 
 ##File format
@@ -37,3 +37,4 @@ __unsigned integers__ (unsigned, unsigned long, unsigned long long)
 
 __floating point numbers__ (float, double, long double)
 
+__booleans__ (bool)

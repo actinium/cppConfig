@@ -8,6 +8,10 @@
   std::string api_key = conf["api_key"];
   unsigned timeout = conf["timeout"];
   
+  if(conf.has_key("key")){
+    ...
+  }
+  
   std::string str = conf.get("key","defaultValue");
 ```
 

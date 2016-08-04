@@ -31,10 +31,10 @@ Variable names may contain characters: `A-Z`, `a-z`, `0-9` and `_`.
 
 __strings__ (std::string)
 
+__booleans__ (bool)
+
 __integers__ (int, long, long long)
 
 __unsigned integers__ (unsigned, unsigned long, unsigned long long)
 
 __floating point numbers__ (float, double, long double)
-
-__booleans__ (bool)

@@ -122,16 +122,6 @@ config::config(std::string filename) : nodes_() {
   }
 }
 
-// Strip string of whitespaces.
-std::string config::strip(const std::string & str){
-  return "";
-}
-
-// Unescape string
-std::string config::unescape(const std::string & str){
-  return "";
-}
-
 // String to unsigned
 unsigned config::stou(const std::string & str){
   return 0;

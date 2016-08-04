@@ -97,8 +97,6 @@ config::config_node config::get(const std::string& variable_name,
 template<typename T>
 config::config_node config::get(const std::string& variable_name,
                                 const T& default_value) const{
-  static_assert(std::is_arithmetic<T>::value,
-                "Type of default_value must be char[], std::string or arithmetic!");
   return get(variable_name,std::to_string(default_value));
 }
 

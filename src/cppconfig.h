@@ -81,7 +81,8 @@ config load(std::string filename) {
 
 // Get the value of variable_name.
 config::config_node config::operator[](const std::string& variable_name) const {
-  return config_node("");
+  std::string s = nodes_.at(variable_name);
+  return config_node( s );
 }
 
 // Get the value of variable_name.
@@ -116,7 +117,6 @@ config::config_node::operator int() const { return 0; }
 config::config(std::string filename) : nodes_() {
   std::ifstream file(filename);
   std::string line;
-  std::cout << "---------------------------" << std::endl;
   while (std::getline(file, line)){
     std::vector<std::string> tokens = tokenize(line);
     if( tokens.size() != 0 ){
@@ -129,22 +129,18 @@ config::config(std::string filename) : nodes_() {
         if( tokens[1] != "=" ){
           // ERROR!
         }
-        std::cout << "variable: " << tokens[0] << std::endl;
-        std::cout << "   value: " << tokens[2] << std::endl;
-        std::cout << "---------------------------" << std::endl;
+        nodes_[tokens[0]] = tokens[2];
         continue;
       }
       // String
       if( tokens.size() >= 3){
         if( tokens[1] == "=" && tokens[2][0] == '\"' ){
-          std::cout << "variable: " << tokens[0] << std::endl;
           std::string str = line.substr( line.find('=') + 1, line.length() );
           std::size_t start = str.find('\"') + 1;
           std::size_t end = str.find_last_of('\"');
           str = str.substr( start, end-start );
           str = unescape(str);
-          std::cout << "   value: " << str << std::endl;
-          std::cout << "---------------------------" << std::endl;
+          nodes_[tokens[0]] = str;
           continue;
         }
       }

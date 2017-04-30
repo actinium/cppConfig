@@ -24,7 +24,6 @@ class config final{
 
   explicit config(std::string filename);
 
-  static std::string    strip(const std::string & str);
   static std::string unescape(const std::string & str);
   static bool     stob(const std::string & str);
   static unsigned stou(const std::string & str); 

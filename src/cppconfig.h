@@ -11,11 +11,12 @@
 #ifndef ACTINIUM_CONFIG_H
 #define ACTINIUM_CONFIG_H
 
-#include <string>
-#include <map>
-#include <type_traits>
 #include <fstream>
 #include <iostream>
+#include <map>
+#include <string>
+#include <type_traits>
+#include <vector>
 
 namespace config{
 
@@ -24,6 +25,7 @@ class config final{
 
   explicit config(std::string filename);
 
+  static std::vector<std::string> tokenize( const std::string & str);
   static std::string unescape(const std::string & str);
   static bool     stob(const std::string & str);
   static unsigned stou(const std::string & str); 
@@ -114,11 +116,90 @@ config::config_node::operator int() const { return 0; }
 config::config(std::string filename) : nodes_() {
   std::ifstream file(filename);
   std::string line;
+  std::cout << "---------------------------" << std::endl;
   while (std::getline(file, line)){
-    if(line != ""){
-      std::cout << line << std::endl;
+    std::vector<std::string> tokens = tokenize(line);
+    if( tokens.size() != 0 ){
+      // Comment
+      if( tokens[0][0] == '#' ){
+        continue;
+      }
+      // 3 Tokens
+      if( tokens.size() == 3 && tokens[2][0] != '\"' ){
+        if( tokens[1] != "=" ){
+          // ERROR!
+        }
+        std::cout << "variable: " << tokens[0] << std::endl;
+        std::cout << "   value: " << tokens[2] << std::endl;
+        std::cout << "---------------------------" << std::endl;
+        continue;
+      }
+      // String
+      if( tokens.size() >= 3){
+        if( tokens[1] == "=" && tokens[2][0] == '\"' ){
+          std::cout << "variable: " << tokens[0] << std::endl;
+          std::string str = line.substr( line.find('=') + 1, line.length() );
+          std::size_t start = str.find('\"') + 1;
+          std::size_t end = str.find_last_of('\"');
+          str = str.substr( start, end-start );
+          str = unescape(str);
+          std::cout << "   value: " << str << std::endl;
+          std::cout << "---------------------------" << std::endl;
+          continue;
+        }
+      }
     }
   }
+}
+
+std::vector<std::string> config::tokenize( const std::string & str ){
+  std::vector<std::string> tokens;
+  std::string delim = " \t";
+  std::size_t prev = 0;
+  std::size_t pos = str.find_first_of( delim, prev );
+  while( pos != std::string::npos ){
+    if(pos > prev){
+      tokens.push_back( str.substr(prev, pos-prev) );
+    }
+    prev = pos+1;
+    pos = str.find_first_of( delim, prev );
+  }
+  if( prev < str.length() ){
+    tokens.push_back( str.substr(prev, std::string::npos) );
+  }
+  return tokens;
+}
+
+std::string config::unescape(const std::string & str){
+  std::string ret;
+  std::string::const_iterator it = str.begin();
+  while( it != str.end() ){
+    char c = *it++;
+    if( c == '\\' && it != str.end() ){
+      switch(*it++){
+        case '\\':
+          ret += '\\';
+          break;
+        case '\'':
+          ret += '\'';
+          break;
+        case '\"':
+          ret += '\"';
+          break;
+        case 't':
+          ret += '\t';
+          break;
+        case 'n':
+          ret += '\n';
+          break;
+        default:
+          continue;
+      }
+    }else{
+      ret += c;
+    }
+  }
+  return ret;
 }
 
 // String to unsigned
